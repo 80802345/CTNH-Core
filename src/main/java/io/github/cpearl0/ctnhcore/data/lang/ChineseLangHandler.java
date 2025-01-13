@@ -63,11 +63,13 @@ public class ChineseLangHandler {
         provider.add("block.ctnhcore.luv_compressed_fusion_reactor", "压缩核聚变反应堆控制电脑 MK-I");
         provider.add("block.ctnhcore.zpm_compressed_fusion_reactor", "压缩核聚变反应堆控制电脑 MK-II");
         provider.add("block.ctnhcore.uv_compressed_fusion_reactor", "压缩核聚变反应堆控制电脑 MK-III");
+        provider.add("gtceu.season_steam","季节共鸣器");
 
         provider.add("gtceu.naq_mk1", "超能燃料");
         provider.add("gtceu.bedrock_drilling_rigs", "基岩钻机");
         provider.add("gtceu.plasma_condenser", "等离子冷凝");
         provider.add("gtceu.multiblock.laser.tooltip", "允许使用激光仓");
+        provider.add("gtceu.silica_rock_fuel_refinery", "硅岩燃料精炼");
         provider.add("ctnh.multiblock.parallelize.tooltip", "自带无损超频且可以使用并行仓");
         provider.add("ctnh.multiblock.underfloor_heating_system.efficiency", "效率：%d");
         provider.add("ctnh.multiblock.underfloor_heating_system.rate", "速率：%s");
@@ -249,6 +251,7 @@ public class ChineseLangHandler {
         provider.add("ctnh.water_power_station.random", "发电量随机在0.6至1的倍率间波动");
         provider.add("ctnh.zenith_max_parallel","最大并行数：%d");
         provider.add("ctnh.zenith_now_parallel","当前并行数：%d");
+        provider.add("ctpp.stress_output","应力输出：%dsu");
         provider.add("water_power_station", "环保能源！");
         provider.add("bio_reactor", "一个大罐子");
         provider.add("ctnh.zenith_tower", "机器类型:蒸馏塔");
@@ -257,25 +260,34 @@ public class ChineseLangHandler {
         provider.add("ctnh.computer.a3","将其他智慧生物作为§4湿件§r来进行运算，获得大量算力，甚至直接做成湿件");
         provider.add("ctnh.computer.a4","机制介绍占位符");
         provider.add("ctnh.computer.a5","该机器会超载所有智慧生物体的大脑。§4不可避免§r地§4永久损坏§r智慧生物的大脑，§4不会留下§r任何掉落物");
-        provider.add("ctnh.computer.a6","诸如村民这种§7低智力§r的原住民的生命与智慧太低了，我们需要§c更加聪明，可爱和生命更高的生物§r");
+        provider.add("ctnh.computer.a6","诸如村民这种§7低智慧§r的新人类的生命与智慧太低了，我们需要§c更加聪明，可爱和生命更高的生物§r");
         provider.add("ctnh.computer.a7","为了无尽的知识，我们必须§4做出一切必要的牺牲§4");
+        provider.add("ctnh.season.a1","§9利用季节共振的力量");
+        provider.add("ctnh.season.a2","基础应力效率：8192su/t");
+        provider.add("ctnh.season.a3","只可放入季节符文\n季节符文与季节相同时，效率和持续时间*2,如果与季节互斥，则效率和持续时间*0.5\n§7注意:由于我水平菜菜，没找到按照配方类型改变效率代码，所以必须在运行一次后机器才能调整效率");
+        provider.add("martial_morality_eye", "丐版鸿蒙之眼");
+        provider.add("ctnh.martial_morality_eye.tooltip.0", "原始时代时消耗64000mb的蒸汽和64个原石");
+        provider.add("ctnh.martial_morality_eye.tooltip.1", "产出主世界和暮色森林以及月球的矿");
+        provider.add("ctnh.martial_morality_eye.tooltip.2", "随着电压等级提高能够解锁更多配方");
+        provider.add("ctnh.martial_morality_eye.tooltip.3", "在前期比坠星好用");
+        provider.add("ctnh.martial_morality_eye.tooltip.4", "结构来源:Twist Space Technology");
 
 
 
         for (var tier : GTMachineUtils.ALL_TIERS) {
-            provider.add(CTNHMachines.CIRCUIT_BUS[tier].getBlock(), GTValues.VNF[tier] + " 芯片总线");
+            provider.add(CTNHMachines.CIRCUIT_BUS[tier].getBlock(), GTValues.VNF[tier] + "§r芯片总线");
         }
         for (var tier : GTMachineUtils.ELECTRIC_TIERS) {
-            provider.add(CTNHMachines.PERSONAL_COMPUTER[tier].getBlock(), GTValues.VNF[tier] + " 个人计算机");
+            provider.add(CTNHMachines.PERSONAL_COMPUTER[tier].getBlock(), GTValues.VNF[tier] + "§r个人计算机");
         }
         for (int tier = GTValues.UHV; tier <= GTValues.MAX; tier++){
-            provider.add(CTNHMachines.PARALLEL_HATCH[tier].getBlock(),GTValues.VNF[tier] + " 并行控制仓");
+            provider.add(CTNHMachines.PARALLEL_HATCH[tier].getBlock(),GTValues.VNF[tier] + "§r并行控制仓");
         }
         for (int tier : GTValues.tiersBetween(LV, HV)){
-            provider.add(CTNHMachines.ENERGY_OUTPUT_HATCH_4A_LOWER[tier].getBlock(), GTValues.VNF[tier] + " 4A动力仓");
+            provider.add(CTNHMachines.ENERGY_OUTPUT_HATCH_4A_LOWER[tier].getBlock(), "4安" + GTValues.VNF[tier] + "§r动力仓");
         }
         for (int tier : GTValues.tiersBetween(LV, MV)){
-            provider.add(CTNHMachines.ROTOR_HOLDER_EXTEND[tier].getBlock(), GTValues.VNF[tier] + " 转子支架");
+            provider.add(CTNHMachines.ROTOR_HOLDER_EXTEND[tier].getBlock(), GTValues.VNF[tier] + "§r转子支架");
         }
 
         provider.add(CTNHCreativeModeTabs.MACHINE.get(), "CTNH机器");
@@ -330,7 +342,9 @@ public class ChineseLangHandler {
         provider.addBlock(CTNHBlocks.ELEMENTIUM_NORMAL_FLUID_PIPE,"源质管道方块");
         provider.addBlock(CTNHBlocks.CASING_MANASTEEL_GEARBOX,"魔力钢齿轮箱方块");
         provider.addBlock(CTNHBlocks.RESERVOIR_COMPUTING_CASING,"高能突触机器外壳");
-
+        provider.addBlock(CTNHBlocks.CASING_NAQUADAH_GEARBOX, "硅岩齿轮箱机械方块");
+        provider.addBlock(CTNHBlocks.CASING_ULTIMATE_ENGINE_INTAKE, "无尽引擎进气机械方块");
+       // provider.addBlock(CTNHBlocks.COMPUTER_HEAT_VENT_SIDE2,"高能机器散热口");
         provider.add(CTNHMultiblockMachines.UNDERFLOOR_HEATING_SYSTEM.getBlock(), "地暖");
         provider.add(CTNHMultiblockMachines.ASTRONOMICAL_OBSERVATORY.getBlock(), "天文台");
         provider.add(CTNHMultiblockMachines.PHOTOVOLTAIC_POWER_STATION_ENERGETIC.getBlock(), "充能光伏发电站");
@@ -393,6 +407,9 @@ public class ChineseLangHandler {
         provider.add(CTNHMultiblockMachines.ZENITH_CIRCUIT_ASSEMBLER.getBlock(), "§5天顶电路组装机§r");
         provider.add(CTNHMultiblockMachines.ZENITH_DISTILLATION_TOWER.getBlock(),"§5天顶聚焦蒸馏塔");
         provider.add(CTNHMultiblockMachines.SCALABLE_RESERVOIR_COMPUTING.getBlock(), "§j突触凝练机");
+        provider.add(CTNHMultiblockMachines.SEASON_REACTER.getBlock(), "§b季节共振器");
+        provider.add(CTNHMultiblockMachines.SILICA_ROCK_FUEL_REFINERY.getBlock(),"硅岩燃料精炼厂");
+        provider.add(CTNHMultiblockMachines.ULTIMATE_COMBUSTION_ENGINE.getBlock(), "无尽内燃引擎");
 
 
     }

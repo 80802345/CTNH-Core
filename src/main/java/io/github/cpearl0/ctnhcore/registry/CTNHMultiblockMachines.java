@@ -25,7 +25,9 @@ import com.gregtechceu.gtceu.common.machine.multiblock.electric.FusionReactorMac
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.LargeMinerMachine;
 import com.gregtechceu.gtceu.common.machine.multiblock.electric.MultiblockTankMachine;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
+import com.mo_guang.ctpp.CTPPRegistration;
 import com.mo_guang.ctpp.api.CTPPPartAbility;
+import com.mo_guang.ctpp.common.machine.multiblock.KineticOutputMachine;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.block.CopperBlockSet;
@@ -40,10 +42,7 @@ import io.github.cpearl0.ctnhcore.common.machine.multiblock.electric.*;
 import io.github.cpearl0.ctnhcore.common.machine.multiblock.generator.*;
 import io.github.cpearl0.ctnhcore.common.machine.multiblock.kinetic.IndustrialPrimitiveBlastFurnaceMachine;
 import io.github.cpearl0.ctnhcore.common.machine.multiblock.kinetic.MeadowMachine;
-import io.github.cpearl0.ctnhcore.common.machine.multiblock.magic.DemonWillMachine;
-import io.github.cpearl0.ctnhcore.common.machine.multiblock.magic.ManaLargeTurbineMachine;
-import io.github.cpearl0.ctnhcore.common.machine.multiblock.magic.ManaMachine;
-import io.github.cpearl0.ctnhcore.common.machine.multiblock.magic.ZenithMachine;
+import io.github.cpearl0.ctnhcore.common.machine.multiblock.magic.*;
 import io.github.cpearl0.ctnhcore.common.machine.multiblock.part.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -57,6 +56,7 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.block.BotaniaFlowerBlocks;
 import wayoftime.bloodmagic.BloodMagic;
 import wayoftime.bloodmagic.common.block.BloodMagicBlocks;
 
@@ -327,7 +327,7 @@ public class CTNHMultiblockMachines {
             .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_solid_steel"), GTCEu.id("block/multiblock/implosion_compressor"), false)
             .register();
 
-    public static final MultiblockMachineDefinition BIG_DAM = REGISTRATE.multiblock("big_dam", WorkableElectricMultiblockMachine::new)
+    public static final MultiblockMachineDefinition BIG_DAM = REGISTRATE.multiblock("big_dam", KineticOutputMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .recipeType(CTNHRecipeTypes.BIG_DAM)
             .appearanceBlock(() -> Blocks.STONE_BRICKS)
@@ -930,7 +930,7 @@ public class CTNHMultiblockMachines {
                     Component.translatable("ctnh.fermenting_tank.bio_growth_temperature"),
                     Component.translatable("ctnh.fermenting_tank.bio_growth"),
                     Component.translatable("ctnh.large_fermenting_tank.bio_growth"))
-            .recipeModifier((machine,recipe) -> FermentingTankMachine.recipeModifier(machine,recipe).andThen(CTNHRecipeModifiers.accurateParallel(8)))
+            .recipeModifier((machine,recipe) -> FermentingTankMachine.recipeModifier(machine,recipe).andThen(CTNHRecipeModifiers.accurateParallel(machine,recipe,8)))
             .appearanceBlock(GTBlocks.CASING_STEEL_SOLID)
             .pattern(definition -> FactoryBlockPattern.start()
                 .aisle("##########AAAAAAAAAAA", "##########ABBBBBBBBBA", "##########ABBBBBBBBBA", "##########AAAAAAAAAAA", "#####################", "#####################", "#####################", "#####################", "#####################", "#####################", "#####################", "#####################", "#####################", "#####################", "############AAAAAAA##", "############AABBBAA##", "############AABBBAA##", "############AABBBAA##", "############AAAAAAA##")
@@ -1283,8 +1283,8 @@ public class CTNHMultiblockMachines {
                             .or(Predicates.abilities(PartAbility.ROTOR_HOLDER).setExactLimit(1)))
                     .where("C", Predicates.blocks(GTBlocks.CASING_TUNGSTENSTEEL_GEARBOX.get()))
                     .where("S", Predicates.blocks(CTNHBlocks.ALF_STEEL_CASING.get())
-                            .or(Predicates.autoAbilities(definition.getRecipeTypes()))
                             .or(Predicates.abilities(PartAbility.MAINTENANCE).setExactLimit(1))
+                            .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))
                             .or(Predicates.abilities(PartAbility.MUFFLER).setExactLimit(1)))
                     .where("@", Predicates.controller(Predicates.blocks(definition.get())))
                     .build()
@@ -1609,12 +1609,12 @@ public class CTNHMultiblockMachines {
             .rotationState(RotationState.NON_Y_AXIS)
             .recipeType(CTNHRecipeTypes.MARTIAL_MORALITY_EYE)
             .appearanceBlock(CASING_BRONZE_BRICKS)
-            .tooltips(Component.translatable("eye_homo").withStyle(ChatFormatting.GRAY),
-                    Component.translatable("ctnh.eye_homo.tooltip.0"),
-                    Component.translatable("ctnh.eye_homo.tooltip.1"),
-                    Component.translatable("ctnh.eye_homo.tooltip.2"),
-                    Component.translatable("ctnh.eye_homo.tooltip.3"),
-                    Component.translatable("ctnh.eye_homo.tooltip.4"))
+            .tooltips(Component.translatable("martial_morality_eye").withStyle(ChatFormatting.GRAY),
+                    Component.translatable("ctnh.martial_morality_eye.tooltip.0"),
+                    Component.translatable("ctnh.martial_morality_eye.tooltip.1"),
+                    Component.translatable("ctnh.martial_morality_eye.tooltip.2"),
+                    Component.translatable("ctnh.martial_morality_eye.tooltip.3"),
+                    Component.translatable("ctnh.martial_morality_eye.tooltip.4"))
             .pattern(definition -> FactoryBlockPattern.start()
                     .aisle("#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "###############A#A###############", "###############A#A###############", "###############A#A###############", "############AAAAAAAAA############", "###############A#A###############", "############AAAAAAAAA############", "###############A#A###############", "###############A#A###############", "###############A#A###############", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################")
                     .aisle("#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "###############A#A###############", "###############A#A###############", "###############A#A###############", "###############A#A###############", "##############BBBBB##############", "#############BBABABB#############", "#########AAAABAABAABAAAA#########", "#############BBBBBBB#############", "#########AAAABAABAABAAAA#########", "#############BBABABB#############", "##############BBBBB##############", "###############A#A###############", "###############A#A###############", "###############A#A###############", "###############A#A###############", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################", "#################################")
@@ -1668,7 +1668,7 @@ public class CTNHMultiblockMachines {
     public static final MultiblockMachineDefinition ADVANCED_COKE_OVEN = REGISTRATE.multiblock("advanced_coke_oven", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.NON_Y_AXIS)
             .recipeType(GTRecipeTypes.COKE_OVEN_RECIPES)
-            .recipeModifier((machine,recipe) -> CTNHRecipeModifiers.accurateParallel(32).andThen(ModifierFunction.builder().eutMultiplier((double) 300 /recipe.duration).build()))
+            .recipeModifier((machine,recipe) -> CTNHRecipeModifiers.accurateParallel(machine,recipe,32).andThen(ModifierFunction.builder().eutMultiplier((double) 300 /recipe.duration).build()))
         .appearanceBlock(HIGH_GRADE_COKE_OVEN_BRICKS)
             .tooltips(Component.translatable("advanced_blast_furnace").withStyle(ChatFormatting.GRAY),
                     Component.translatable("ctnh.advanced_blast_furnace.tooltip.0"),
@@ -1693,7 +1693,7 @@ public class CTNHMultiblockMachines {
     public static final MultiblockMachineDefinition DIMENSIONAL_GAS_COLLECTION_CHAMBER = REGISTRATE.multiblock("dimensional_gas_collection_chamber", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(CTNHRecipeTypes.DIMENSIONAL_GAS_COLLECTION)
-            .recipeModifier((machine,recipe) -> GTRecipeModifiers.OC_PERFECT_SUBTICK.getModifier(machine,recipe).andThen(CTNHRecipeModifiers.accurateParallel(1)))
+            .recipeModifier((machine,recipe) -> GTRecipeModifiers.OC_PERFECT_SUBTICK.getModifier(machine,recipe).andThen(CTNHRecipeModifiers.accurateParallel(machine,recipe,1)))
             .appearanceBlock(PLASTCRETE)
             .tooltips(
                     Component.translatable("large_gas_collection_chamber").withStyle(ChatFormatting.GRAY),
@@ -1717,7 +1717,7 @@ public class CTNHMultiblockMachines {
         .where("@", Predicates.controller(Predicates.blocks(definition.get())))
         .build()
         )
-            .workableCasingRenderer(CTNHCore.id("block/casings/cleanroom/plascrete"), GTCEu.id("block/multiblock/fusion_reactor"), false)
+            .workableCasingRenderer(GTCEu.id("block/casings/cleanroom/plascrete"), GTCEu.id("block/multiblock/fusion_reactor"), false)
             .register();
 
     public static final MultiblockMachineDefinition CONDENSING_DISCRETE = REGISTRATE.multiblock("condensing_discrete", WorkableElectricMultiblockMachine::new)
@@ -1743,7 +1743,7 @@ public class CTNHMultiblockMachines {
                     .where("S", Predicates.abilities(PartAbility.MUFFLER).setExactLimit(1))
                     .build()
             )
-            .workableCasingRenderer(CTNHCore.id("block/casings/solid/machine_casing_frost_proof"), GTCEu.id("block/multiblock/implosion_compressor"), false)
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_frost_proof"), GTCEu.id("block/multiblock/implosion_compressor"), false)
             .register();
 
     public static final MultiblockMachineDefinition ION_EXCHANGER = REGISTRATE.multiblock("ion_exchanger", WorkableElectricMultiblockMachine::new)
@@ -1771,13 +1771,13 @@ public class CTNHMultiblockMachines {
                     .where("@", Predicates.controller(Predicates.blocks(definition.get())))
                     .build()
             )
-            .workableCasingRenderer(CTNHCore.id("block/casings/solid/machine_casing_sturdy_hsse"), GTCEu.id("block/multiblock/implosion_compressor"), false)
+            .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_sturdy_hsse"), GTCEu.id("block/multiblock/implosion_compressor"), false)
             .register();
 
     public static final MultiblockMachineDefinition LARGE_STEEL_FURNACE = REGISTRATE.multiblock("large_steel_furnace", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.FURNACE_RECIPES)
-            .recipeModifier((machine,recipe) -> GTRecipeModifiers.OC_PERFECT_SUBTICK.getModifier(machine,recipe).andThen(CTNHRecipeModifiers.accurateParallel(32)))
+            .recipeModifier((machine,recipe) -> GTRecipeModifiers.OC_PERFECT_SUBTICK.getModifier(machine,recipe).andThen(CTNHRecipeModifiers.accurateParallel(machine,recipe,32)))
         .appearanceBlock(CASING_PRIMITIVE_BRICKS)
             .tooltips(
                     Component.translatable("large_steel_alloy_furnace").withStyle(ChatFormatting.GRAY),
@@ -1802,7 +1802,7 @@ public class CTNHMultiblockMachines {
     public static final MultiblockMachineDefinition LARGE_STEEL_ALLOY_FURNACE = REGISTRATE.multiblock("large_steel_alloy_furnace", WorkableElectricMultiblockMachine::new)
             .rotationState(RotationState.ALL)
             .recipeType(GTRecipeTypes.ALLOY_SMELTER_RECIPES)
-            .recipeModifier((machine,recipe) -> GTRecipeModifiers.OC_PERFECT_SUBTICK.getModifier(machine,recipe).andThen(CTNHRecipeModifiers.accurateParallel(32)))
+            .recipeModifier((machine,recipe) -> GTRecipeModifiers.OC_PERFECT_SUBTICK.getModifier(machine,recipe).andThen(CTNHRecipeModifiers.accurateParallel(machine,recipe,32)))
             .appearanceBlock(CASING_PRIMITIVE_BRICKS)
             .tooltips(
                     Component.translatable("large_steel_alloy_furnace").withStyle(ChatFormatting.GRAY),
@@ -1927,7 +1927,7 @@ public class CTNHMultiblockMachines {
             .rotationState(RotationState.NON_Y_AXIS)
             .recipeType(CTNHRecipeTypes.VACUUM_SINTERING)
             .tooltips(Component.translatable("vacuum_sintering_tower").withStyle(ChatFormatting.GRAY))
-            .recipeModifier((machine,recipe) -> CTNHRecipeModifiers.accurateParallel(16).compose(GTRecipeModifiers.ebfOverclock(machine,recipe)))
+            .recipeModifier((machine,recipe) -> CTNHRecipeModifiers.accurateParallel(machine,recipe,16).compose(GTRecipeModifiers.ebfOverclock(machine,recipe)))
             .appearanceBlock(GCYMBlocks.CASING_HIGH_TEMPERATURE_SMELTING)
             .pattern(definition -> FactoryBlockPattern.start()
                 .aisle("AAAAA", "AAAAA", "A###A", "#####", "#####", "#####")
@@ -1966,7 +1966,7 @@ public class CTNHMultiblockMachines {
                     Component.translatable("ctnh.crystallizer.coolant"),
                     Component.translatable("ctnh.crystallizer.overclock"),
                     Component.translatable("ctnh.crystallizer.safe"))
-            .recipeModifier((machine,recipe) -> CTNHRecipeModifiers.accurateParallel(16).compose(GTRecipeModifiers.ebfOverclock(machine,recipe)))
+            .recipeModifier((machine,recipe) -> CTNHRecipeModifiers.accurateParallel(machine,recipe,16).compose(GTRecipeModifiers.ebfOverclock(machine,recipe)))
             .appearanceBlock(GCYMBlocks.CASING_HIGH_TEMPERATURE_SMELTING)
             .pattern(definition -> FactoryBlockPattern.start()
                 .aisle("##AAAAA##", "###BCB###", "###BBB###", "#########", "#########", "#########", "#########", "#########", "#########")
@@ -2206,6 +2206,56 @@ public class CTNHMultiblockMachines {
                     .where("@",Predicates.controller(Predicates.blocks(definition.get())))
                     .build())
             .workableCasingRenderer((CTNHCore.id("block/casings/zenith_casing")), GTCEu.id("block/multiblock/generator/large_steam_turbine"), false)
+            .register();
+    public static MultiblockMachineDefinition SEASON_REACTER = CTPPRegistration.REGISTRATE.multiblock("season_reacter", season_reacter::new)
+            .rotationState(RotationState.NON_Y_AXIS)
+            .recipeType(CTNHRecipeTypes.SEASON_STEAM_RECIPES)
+            // .appearanceBlock(GTBlocks.CASING_BRONZE_BRICKS)
+            .tooltips(Component.translatable("ctnh.season.a1"),
+                    Component.translatable("ctnh.season.a2"),
+                    Component.translatable("ctnh.season.a3"))
+            .recipeModifier(season_reacter::recipeModifier)
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle("YXY","XWX","KKK")
+                    .aisle("XVX","WUW","KOK")
+                    .aisle("Y@Y","XWX","KKK")
+                    .where("Y",Predicates.blocks(BotaniaBlocks.livingwood))
+                    .where("#",Predicates.any())
+                    .where("W",Predicates.blocks(BotaniaBlocks.manaGlass))
+                    .where("V",Predicates.blocks(DIRT))
+                    .where("O",Predicates.blocks((BotaniaBlocks.manaPylon)))
+                    .where("K",Predicates.blocks(BotaniaBlocks.livingrockBrickStairs))
+                    .where("U",Predicates.blocks(BotaniaFlowerBlocks.pureDaisy))
+                    .where("X", Predicates.abilities(CTPPPartAbility.OUTPUT_KINETIC).setExactLimit(1)
+                            .or(Predicates.blocks(BotaniaBlocks.livingrockBrick))
+                            .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
+                    )
+                    .where("@",Predicates.controller(Predicates.blocks(definition.get())))
+                    .build())
+            .workableCasingRenderer(ResourceLocation.tryParse("botania:block/polished_livingrock"), GTCEu.id("block/multiblock/generator/large_steam_turbine"), false)
+            .register();
+
+    public final static MultiblockMachineDefinition SILICA_ROCK_FUEL_REFINERY = REGISTRATE.multiblock("silica_rock_fuel_refinery", WorkableElectricMultiblockMachine::new)
+            .rotationState(RotationState.ALL)
+            .recipeTypes(CTNHRecipeTypes.SILICA_ROCK_FUEL_REFINERY)
+            .appearanceBlock(CTNHBlocks.CASING_NAQUADAH_BLOCK)
+            .recipeModifiers(GTRecipeModifiers.ELECTRIC_OVERCLOCK.apply(OverclockingLogic.PERFECT_OVERCLOCK_SUBTICK))
+            .pattern(definition -> FactoryBlockPattern.start()
+                    .aisle("##AAA##", "##ABA##", "##AAA##", "###B###", "###B###", "###A###")
+                    .aisle("###A###", "##AAA##", "###C###", "##ADA##", "###A###", "###A###")
+                    .aisle("A##A##A", "AAADAAA", "A#ACA#A", "#AACAA#", "##ADA##", "###C###")
+                    .aisle("AAAAAAA", "BADDDAB", "ACCDCCA", "BDCDCDB", "BADDDAB", "AACCCAA")
+                    .aisle("A##A##A", "AAADAAA", "A#ACA#A", "#AACAA#", "##ADA##", "###C###")
+                    .aisle("###A###", "##AAA##", "###C###", "##ADA##", "###A###", "###A###")
+                    .aisle("##AAA##", "##A@A##", "##AAA##", "###B###", "###B###", "###A###")
+                    .where("#", Predicates.any())
+                    .where("A", Predicates.blocks(CASING_NAQUADAH_BLOCK.get()))
+                    .where("B", Predicates.frames(GTMaterials.NaquadahEnriched))
+                    .where("C", Predicates.blocks(ANNIHILATE_CORE_MKI.get()))
+                    .where("D", Predicates.blocks(PLASMA_COOLED_CORE.get()))
+                    .where("@", Predicates.controller(Predicates.blocks(definition.get())))
+                    .build())
+            .workableCasingRenderer((CTNHCore.id("block/casings/nq_casing")), GTCEu.id("block/multiblock/implosion_compressor"), false)
             .register();
 
     public static void init() {
