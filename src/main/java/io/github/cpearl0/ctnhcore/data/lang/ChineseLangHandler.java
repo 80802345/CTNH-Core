@@ -64,6 +64,9 @@ public class ChineseLangHandler {
         provider.add("block.ctnhcore.zpm_compressed_fusion_reactor", "压缩核聚变反应堆控制电脑 MK-II");
         provider.add("block.ctnhcore.uv_compressed_fusion_reactor", "压缩核聚变反应堆控制电脑 MK-III");
         provider.add("gtceu.season_steam","季节共鸣器");
+        provider.add("gtceu.eye_of_quasar","§5类星体§r§1之§c眼");
+        provider.add("ctnh.eye_consumption","启动消耗:%.1f");
+        provider.add("gtceu:quasar_eye","类星体发电");
 
         provider.add("gtceu.naq_mk1", "超能燃料");
         provider.add("gtceu.bedrock_drilling_rigs", "基岩钻机");
@@ -271,6 +274,27 @@ public class ChineseLangHandler {
         provider.add("ctnh.martial_morality_eye.tooltip.2", "随着电压等级提高能够解锁更多配方");
         provider.add("ctnh.martial_morality_eye.tooltip.3", "在前期比坠星好用");
         provider.add("ctnh.martial_morality_eye.tooltip.4", "结构来源:Twist Space Technology");
+        provider.add("ctnh.lp_now","当前含有lp量:%d");
+        provider.add("ctnh.lp_max","最大lp量:%d");
+        provider.add("ctnh.lp_consumption","消耗/输入的lp量:%.1f");
+        provider.add("ctnh.alter.tips1","§4血魔法，就在你家门口！");
+        provider.add("ctnh.alter.tips2","与血祭坛相同，该结构有输入LP上限，同时你§4必须通过特定配方来增加其lp§r\n详见JEI以查询增加的配方");
+        provider.add("ctnh.alter.tips3","电压每超过HV一级，就增加10000可存储LP上限，达到LUV后每级额外增加20000");
+        provider.add("ctnh.alter.tips4","每一个增容符文增加2500LP上限，强化增容符文增加5000,达到LUV后每级额外增加2500/5000LP上限");
+        provider.add("ctnh.tier5_rune","五级符文");
+        provider.add("ctnh.rune_energy","符文能量：%.2f");
+        provider.add("ctnh.rune_consumption","当前消耗符文能量速率:%.2f /100tick");
+        provider.add("ctnh.mana_model","当前魔力燃料等级:%d");
+        provider.add("ctnh.mana_production","当前发电效率:%.2f");
+        provider.add("ctnh.quarsar.tips1","§9魔力§r的§c终极奥秘§r，足以制造§5类星体§r的装置掌握在§6你§r的手中");
+        provider.add("ctnh.quarsar.tips2","该机器启动需要§r初始魔力燃料消耗§R，查阅JEI以查找消耗量");
+        provider.add("ctnh.quarsar.tips3","§5符文能量§r控制着输出的强度，输入§b五级符文§r来增强符文能量，以加强你的输出,使用§5类星体符文§r产生128符文能量");
+        provider.add("ctnh.quarsar.tips4","§c注意§r：符文能量越高，其消耗速度就§c越快§r，且符文能量低于50时§c效率将会减半！§r");
+        provider.add("ctnh.quarsar.tips5","§b好消息§r：这个机器不会爆炸，§c但我不保证未来它不会爆炸！§r");
+        provider.add("ctnh.quarsar.tips6","在能量等级高时启动能量等级低的配方§b不需要启动花费§r");
+        provider.add("ctnh.quarsar.tips7","该机器能量效率为log((符文能量)/50)+1，最大能量效率为1+1*能量等级");
+        provider.add("ctnh.quasar_parallel","时间并行:%.2f");
+        provider.add("ctnh.consumption_parallel","能源消耗率:%.2f");
 
 
 
@@ -302,6 +326,10 @@ public class ChineseLangHandler {
         provider.addItem(CTNHItems.TUMOR, "肿瘤");
         provider.addItem(CTNHItems.HORIZEN_RUNE, "视域符文");
         provider.addItem(CTNHItems.REFINED_IRON_INGOT, "精炼铁方坯");
+        provider.add(CTNHItems.TWIST_RUNE.get(), "扭曲符文");
+        provider.add(CTNHItems.STARLIGHT_RUNE.get(), "星光符文");
+        provider.add(CTNHItems.QUASAR_RUNE.get(), "§5类星体§r符文");
+provider.add(CTNHItems.PROLIFERATION_RUNE.get(), "增殖符文");
         provider.addBlock(CTNHBlocks.CASING_REFLECT_LIGHT, "反光机械方块");
         provider.addBlock(CTNHBlocks.CASING_OSMIRIDIUM, "铱锇合金机械方块");
         provider.addBlock(CTNHBlocks.CASING_TUNGSTENCU_DIAMOND_PLATING, "W-Cu覆膜金刚石机械方块");
@@ -344,7 +372,9 @@ public class ChineseLangHandler {
         provider.addBlock(CTNHBlocks.RESERVOIR_COMPUTING_CASING,"高能突触机器外壳");
         provider.addBlock(CTNHBlocks.CASING_NAQUADAH_GEARBOX, "硅岩齿轮箱机械方块");
         provider.addBlock(CTNHBlocks.CASING_ULTIMATE_ENGINE_INTAKE, "无尽引擎进气机械方块");
-       // provider.addBlock(CTNHBlocks.COMPUTER_HEAT_VENT_SIDE2,"高能机器散热口");
+        provider.addBlock((CTNHBlocks.COIL_ULTRA_MANA),"类星体魔力线圈方块");
+        // provider.addBlock(CTNHBlocks.COMPUTER_HEAT_VENT_SIDE2,"高能机器散热口");
+        provider.addBlock(CTNHBlocks.QUASAR_ENERGY_STABILIZATION_CASING,"类星体能量稳定机械外壳");
         provider.add(CTNHMultiblockMachines.UNDERFLOOR_HEATING_SYSTEM.getBlock(), "地暖");
         provider.add(CTNHMultiblockMachines.ASTRONOMICAL_OBSERVATORY.getBlock(), "天文台");
         provider.add(CTNHMultiblockMachines.PHOTOVOLTAIC_POWER_STATION_ENERGETIC.getBlock(), "充能光伏发电站");
@@ -407,9 +437,12 @@ public class ChineseLangHandler {
         provider.add(CTNHMultiblockMachines.ZENITH_CIRCUIT_ASSEMBLER.getBlock(), "§5天顶电路组装机§r");
         provider.add(CTNHMultiblockMachines.ZENITH_DISTILLATION_TOWER.getBlock(),"§5天顶聚焦蒸馏塔");
         provider.add(CTNHMultiblockMachines.SCALABLE_RESERVOIR_COMPUTING.getBlock(), "§j突触凝练机");
-        provider.add(CTNHMultiblockMachines.SEASON_REACTER.getBlock(), "§b季节共振器");
+        provider.add(CTNHMultiblockMachines.SEASON_REACTOR.getBlock(), "§b季节共振器");
         provider.add(CTNHMultiblockMachines.SILICA_ROCK_FUEL_REFINERY.getBlock(),"硅岩燃料精炼厂");
         provider.add(CTNHMultiblockMachines.ULTIMATE_COMBUSTION_ENGINE.getBlock(), "无尽内燃引擎");
+        provider.add(CTNHMultiblockMachines.ALTER.getBlock(), "§b工业血之祭坛");
+        provider.add(CTNHMultiblockMachines.EYE_OF_QUASAR.getBlock(), "§5类星体§r§1之§c眼");
+
 
 
     }

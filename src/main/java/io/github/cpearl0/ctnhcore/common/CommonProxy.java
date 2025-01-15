@@ -20,13 +20,11 @@ public class CommonProxy {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         CTNHCreativeModeTabs.init();
-        CTNHItems.init();
-        CTNHBlocks.init();
         CTNHBlockEntities.init();
         CTNHRegistration.REGISTRATE.registerRegistrate();
 
         CTNHRecipes.init(modEventBus);
-
+        CTNHTemperatureModifierRegister.init();
         CTNHCoreDatagen.init();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
